@@ -18,6 +18,34 @@
 
           // On écrit le contenu de la variable 'texte' dans la page Web
           echo $texte;
+
+          $marque="Renault";
+          $couleur="bleu";
+          $immatriculation="256AB34";
+
+          echo "<p> Voiture $immatriculation de marque $marque (couleur $couleur) </p>";
+
+          $voiture=array(
+          	marque=>Mazda,
+          	couleur=>rouge,
+          	immatriculation=>ABC123);
+
+          var_dump($voiture);
+
+          echo "<p> Voiture $voiture[immatriculation] de marque $voiture[marque] (couleur $voiture[couleur]) </p>";
+
+          $voitures=array($voiture);
+
+          var_dump($voitures);
+
+          echo "<p> Liste des voitures </p>"; 
+          if(empty($voitures)) {
+          	echo "Le tableau est vide";
+          }
+
+          foreach ($voitures as $key => $value) {
+          	echo "<ul> Voiture $value[immatriculation] de marque $value[marque] (couleur $value[couleur]) </ul>";
+          }
         ?>
     </body>
 </html>
