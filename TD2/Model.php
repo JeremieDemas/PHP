@@ -19,9 +19,14 @@ public static function Init() {
 		// On active le mode d'affichage des erreurs, et le lancement d'exception en cas d'erreur
 		self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
-	catch(PDOException $e) {
-		echo $e->getMessage(); // affiche un message d'erreur
-		die();
+	catch (PDOException $e) {
+	  if (Conf::getDebug()) {
+	    echo $e->getMessage(); // affiche un message d'erreur
+	  }
+	  else {
+	    echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+	  }
+	  die();
 	}
 	
 }

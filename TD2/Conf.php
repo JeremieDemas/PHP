@@ -1,5 +1,12 @@
 <?php
 class Conf {
+
+  // la variable debug est un boolean
+  static private $debug = True; 
+    
+  static public function getDebug() {
+    return self::$debug;
+  }
    
   static private $databases = array(
     // Le nom d'hote est webinfo a l'IUT
