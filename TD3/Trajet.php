@@ -1,4 +1,7 @@
 <?php
+
+require_once('Model.php');
+
 class Trajet {
 
 	private $id;
@@ -40,16 +43,53 @@ class Trajet {
 	}
 
 	public static function getAllTrajets() {
-    $rep=Model::$pdo->query("SELECT * FROM trajet");
-    $rep->setFetchMode(PDO::FETCH_CLASS, 'Trajet');
-    $tab_trajet = $rep->fetchAll();
-    foreach ($tab_trajet as $key => $value) {
-    	$value->afficher();
-    }
+    try {
+    	$rep=Model::$pdo->query("SELECT * FROM trajet");
+	    $rep->setFetchMode(PDO::FETCH_CLASS, 'Trajet');
+	    $tab_trajet = $rep->fetchAll();
+	    foreach ($tab_trajet as $key => $value) {
+	    	$value->afficher();
+	    }
+	}
+	catch (PDOException $e) {
+	  if (Conf::getDebug()) {
+	    echo $e->getMessage(); // affiche un message d'erreur
+	  }
+	  else {
+	    echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+	  }
+	  die();
+	}
   }
 
   public function afficher() {
   	echo "<p> Le trajet numéro $this->id effectué par $this->conducteur_login le $this->date en provenance de $this->depart et à destination de $this->arrivee propose $this->nbplaces places pour $this->prix € l'unité. </p>";
+  }
+
+  public static function findPassagers($id) {
+  	try {
+  		$sql="SELECT login, nom, prenom FROM trajet t JOIN passager p ON t.id=p.trajet_id JOIN utilisateur u ON p.utilisateur_login=u.login WHERE t.id=:tag_id";
+  		$req_prep=Model::$pdo->prepare($sql);
+  		$values=array(
+  			"tag_id" => $id,
+  		);
+  		$req_prep->execute($values);
+  		$req_prep->setFetchMode(PDO::FETCH_CLASS,'Utilisateur');
+  		$tab_passager=$req_prep->fetchAll();
+  		if(empty ($tab_passager)) {
+  			return false;
+  		}
+  		return $tab_passager;
+  	}
+  	catch (PDOException $e) {
+	  if (Conf::getDebug()) {
+	    echo $e->getMessage(); // affiche un message d'erreur
+	  }
+	  else {
+	    echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+	  }
+	  die();
+	}
   }
 
 }
