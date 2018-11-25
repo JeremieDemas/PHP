@@ -93,7 +93,25 @@ class Trajet {
   }
 
   public static function deletePassager($data) {
-  	
+  	try {
+  		$sql="DELETE FROM passager WHERE utilisateur_login=:tag_login AND trajet_id=:tag_trajet";
+  		$req_prep=Model::$pdo->prepare($sql);
+  		$values=array(
+  			"tag_login" => $data["utilisateur_login"],
+  			"tag_trajet" => $data["trajet_id"],
+  		);
+  		$req_prep->execute($values);
+  		$req_prep->setFetchMode(PDO::FETCH_CLASS,'Passager');
+  	}
+  	catch (PDOException $e) {
+	  if (Conf::getDebug()) {
+	    echo $e->getMessage(); // affiche un message d'erreur
+	  }
+	  else {
+	    echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+	  }
+	  die();
+	}
   }
 
 }
