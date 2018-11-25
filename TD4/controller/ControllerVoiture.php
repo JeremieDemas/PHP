@@ -26,5 +26,11 @@ class ControllerVoiture {
     	$voit->save();
     	self::readAll();
     }
+
+    public static function delete() {
+        $immat=$_GET["immat"];
+        ModelVoiture::deleteVoiture($immat);
+        self::readAll();
+    }
 }
 ?>
