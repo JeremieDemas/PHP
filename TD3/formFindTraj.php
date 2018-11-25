@@ -8,12 +8,12 @@
     </head>
    
     <body>
-    	<form method="get" action="testFindUtil.php">
+    	<form method="get" action="testFindTraj.php">
   			<fieldset>
     			<legend>Mon formulaire :</legend>
     			<p>
-      				<label for="login_id">Id trajet</label> :
-      					<input type="text" placeholder="Ex : 1" name="id" id="trajet_id" required/>
+      				<label for="trajet_id">Login utilisateur</label> :
+      					<input type="text" placeholder="Ex : 1" name="login" id="login_utilisateur" required/>
     			</p>
           <p>
               <input type="submit" value="Envoyer" />

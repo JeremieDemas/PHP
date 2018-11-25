@@ -92,5 +92,9 @@ class Trajet {
 	}
   }
 
+  public static function deletePassager($data) {
+  	
+  }
+
 }
 ?>
