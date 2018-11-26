@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-
-<html>
-    
-    <head>
-        <meta charset="utf-8" />
-        <title> Mon premier php </title>
-    </head>
-   
-    <body>
     	<form method="post" action="index.php?action=created">
   			<fieldset>
     			<legend>Mon formulaire :</legend>
@@ -28,6 +18,3 @@
     			</p>
   			</fieldset> 
 		</form>
-	</body>
-
-</html>
