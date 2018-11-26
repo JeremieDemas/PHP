@@ -8,7 +8,7 @@
         <?php
 
         foreach ($v as $value) {
-            echo "<p> Voiture ".$value->getImmatriculation()." de marque ".$value->getMarque()." (couleur ".$value->getImmatriculation()."). </p>";
+            echo "<p> Voiture ".htmlspecialchars($value->getImmatriculation())." de marque ".htmlspecialchars($value->getMarque())." (couleur ".htmlspecialchars($value->getCouleur())."). </p>";
         }
         
         ?>
