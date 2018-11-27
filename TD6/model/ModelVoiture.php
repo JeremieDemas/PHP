@@ -166,14 +166,13 @@ class ModelVoiture {
     }
   }
 
-  public static function updateByImmat($couleur,$marque,$immat) {
+  public static function update($data) {
     try {
-      $sql="UPDATE voiture SET couleur=:tag_couleur,marque=:tag_marque WHERE immatriculation=:tag_immat";
+      $sql="UPDATE voiture SET couleur=:tag_couleur,marque=:tag_marque WHERE immatriculation='123456';";
       $req_prep=Model::$pdo->prepare($sql);
       $values=array(
-        "tag_immat" => $immat,
-        "tag_couleur" => $couleur,
-        "tag_marque" => $marque,
+        "tag_couleur" => $data["couleur"],
+        "tag_marque" => $data["marque"],
       );
       $req_prep->execute($values);
       $req_prep->setFetchMode(PDO::FETCH_CLASS,'ModelVoiture');
