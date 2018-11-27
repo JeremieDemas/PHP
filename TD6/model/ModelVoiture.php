@@ -145,7 +145,7 @@ class ModelVoiture {
   	}
   }
 
-  public static function deleteVoiture($immat) {
+  public static function deleteByImmat($immat) {
     try {
       $sql="DELETE FROM voiture WHERE immatriculation=:tag_immat";
       $req_prep=Model::$pdo->prepare($sql);
@@ -156,14 +156,37 @@ class ModelVoiture {
       $req_prep->setFetchMode(PDO::FETCH_CLASS,'ModelVoiture');
     }
     catch (PDOException $e) {
-    if (Conf::getDebug()) {
-      echo $e->getMessage(); // affiche un message d'erreur
+      if (Conf::getDebug()) {
+        echo $e->getMessage(); // affiche un message d'erreur
+      }
+      else {
+        echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+      }
+      die();
     }
-    else {
-      echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-    }
-    die();
   }
+
+  public static function updateByImmat($couleur,$marque,$immat) {
+    try {
+      $sql="UPDATE voiture SET couleur=:tag_couleur,marque=:tag_marque WHERE immatriculation=:tag_immat";
+      $req_prep=Model::$pdo->prepare($sql);
+      $values=array(
+        "tag_immat" => $immat,
+        "tag_couleur" => $couleur,
+        "tag_marque" => $marque,
+      );
+      $req_prep->execute($values);
+      $req_prep->setFetchMode(PDO::FETCH_CLASS,'ModelVoiture');
+    }
+    catch (PDOException $e) {
+      if (Conf::getDebug()) {
+        echo $e->getMessage(); // affiche un message d'erreur
+      }
+      else {
+        echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+      }
+      die();
+    }  
   }
 
 }

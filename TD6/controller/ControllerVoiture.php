@@ -43,9 +43,30 @@ class ControllerVoiture {
     }
 
     public static function delete() {
+        $controller='voiture';
+        $view='deleted';
+        $pagetitle='Voiture supprimée avec succès';
         $immat=$_GET["immat"];
-        ModelVoiture::deleteVoiture($immat);
+        $v=ModelVoiture::getVoitureByImmat("$immat");
+        ModelVoiture::deleteByImmat($immat);
+        require File::build_path(array("view","view.php"));
         self::readAll();
+    }
+
+    public static function error() {
+        $controller='voiture';
+        $view='error';
+        $pagetitle='Erreur 404';
+        require File::build_path(array("view","view.php"));
+    }
+
+    public static function update() {
+        $controller='voiture';
+        $view='updated';
+        $pagetitle='Mise à jour de la voiture avec succès';
+        $immat=$_GET["immat"];
+        $v=ModelVoiture::updateByImmat("$immat");
+        require File::build_path(array("view","voiture","update.php"));
     }
 }
 ?>
