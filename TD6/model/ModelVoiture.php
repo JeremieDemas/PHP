@@ -78,16 +78,16 @@ class ModelVoiture {
 	      $value->afficher();
 	    }*/
       return $tab_voit;
-	}
-	catch (PDOException $e) {
-	  if (Conf::getDebug()) {
-	    echo $e->getMessage(); // affiche un message d'erreur
-	  }
-	  else {
-	    echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-	  }
-	  die();
-	}
+  	}
+  	catch (PDOException $e) {
+  	  if (Conf::getDebug()) {
+  	    echo $e->getMessage(); // affiche un message d'erreur
+  	  }
+  	  else {
+  	    echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+  	  }
+  	  die();
+  	}
   }
 
   public static function getVoitureByImmat($immat) {

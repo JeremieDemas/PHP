@@ -1,18 +1,23 @@
 <?php
 require_once('/var/www/html/PHP/TD6/lib/File.php');
 require_once File::build_path(array("controller","ControllerVoiture.php"));
+require_once File::build_path(array("controller","ControllerUtilisateur.php"));
 // On recupère l'action passée dans l'URL
+
 if(!isset($_GET["action"])) {
 	$_GET["action"] = "readAll";		
 }
+
 if(!in_array($_GET["action"],get_class_methods('ControllerVoiture'))) {
 	$_GET["action"] = "error";
 }
+
 $action = $_GET["action"];
 
 if(!isset($_GET["controller"])) {
 	$_GET["controller"] = "voiture";		
 }
+
 $controller=$_GET["controller"];
 
 $controller_class="Controller".ucfirst($controller);
@@ -23,5 +28,5 @@ else {
 	$action="error";
 }
 // Appel de la méthode statique $action de ControllerVoiture
-ControllerVoiture::$action(); 
+$controller_class::$action(); 
 ?>
