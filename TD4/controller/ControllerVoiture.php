@@ -22,7 +22,7 @@ class ControllerVoiture {
     } 
 
     public static function created() {
-    	$voit=new ModelVoiture($_POST["marque"],$_POST["couleur"],$_POST["immatriculation"]);
+    	$voit=new ModelVoiture($_GET["marque"],$_GET["couleur"],$_GET["immatriculation"]);
     	$voit->save();
     	self::readAll();
     }

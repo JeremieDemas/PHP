@@ -8,7 +8,8 @@
     </head>
    
     <body>
-    	<form method="post" action="../controller/routeur.php?action=created">
+    	<form method="get" action="../controller/routeur.php">
+        <input type='hidden' name='action' value='created'>
   			<fieldset>
     			<legend>Mon formulaire :</legend>
           <p>
