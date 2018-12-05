@@ -2,7 +2,9 @@
 
 require_once File::build_path(array("model","Model.php"));
 
-class ModelVoiture {
+class ModelVoiture extends Model {
+
+  protected static $object="voiture";
    
   private $marque;
   private $couleur;
@@ -69,14 +71,11 @@ class ModelVoiture {
       }
   }
 
-  public static function getAllVoitures() {
+  /*public static function getAllVoitures() {
     try {
     	$rep=Model::$pdo->query("SELECT * FROM voiture");
 	    $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelVoiture');
 	    $tab_voit = $rep->fetchAll();
-	    /*foreach ($tab_voit as $key => $value) {
-	      $value->afficher();
-	    }*/
       return $tab_voit;
   	}
   	catch (PDOException $e) {
@@ -88,7 +87,7 @@ class ModelVoiture {
   	  }
   	  die();
   	}
-  }
+  }*/
 
   public static function getVoitureByImmat($immat) {
     try {

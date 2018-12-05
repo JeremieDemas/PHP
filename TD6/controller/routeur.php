@@ -8,9 +8,9 @@ if(!isset($_GET["action"])) {
 	$_GET["action"] = "readAll";		
 }
 
-/*if(!in_array($_GET["action"],get_class_methods('ControllerVoiture'))) {
+if(!in_array($_GET["action"],get_class_methods('ControllerVoiture'))) {
 	$_GET["action"] = "error";
-}*/
+}
 
 $action = $_GET["action"];
 

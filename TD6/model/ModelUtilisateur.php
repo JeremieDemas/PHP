@@ -2,7 +2,9 @@
 
 require_once File::build_path(array("model","Model.php"));
 
-class ModelUtilisateur {
+class ModelUtilisateur extends Model {
+
+	protected static $object="utilisateur";
 
 	private $login;
 	private $nom;
@@ -30,14 +32,11 @@ class ModelUtilisateur {
 	    }
 	}
 
-	public static function getAllUtilisateurs() {
+	/*public static function getAllUtilisateurs() {
 		try {
 			$rep=Model::$pdo->query("SELECT * FROM utilisateur");
 		    $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUtilisateur');
 		    $tab_utilisateur = $rep->fetchAll();
-		    /* foreach ($tab_utilisateur as $key => $value) {
-		      $value->afficher(); 
-		    } */
 		    if (empty($tab_utilisateur)) {
 		    	echo "<p> Aucun utilisateur n'est disponible. </p>";
 		    }
@@ -54,7 +53,7 @@ class ModelUtilisateur {
 	  	  }
 	  	  die();
 	  	}
-    }
+    }*/
 
   /*public function afficher() {
   	echo "<p> L'utilisateur $this->login s'appelle $this->prenom $this->nom. </p>";		

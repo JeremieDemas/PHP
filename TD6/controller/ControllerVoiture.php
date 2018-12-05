@@ -7,7 +7,7 @@ class ControllerVoiture {
     	$controller='voiture';
     	$view='list';
     	$pagetitle='Liste des voitures';
-        $tab_v = ModelVoiture::getAllVoitures();     //appel au modèle pour gerer la BD
+        $tab_v = ModelVoiture::selectAll();     //appel au modèle pour gerer la BD
         require File::build_path(array("view","view.php"));  //"redirige" vers la vue
     }
 
