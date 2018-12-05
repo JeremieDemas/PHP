@@ -8,8 +8,8 @@ class ModelUtilisateur {
 	private $nom;
 	private $prenom;
 
-	public function getLogin() {
-		return $this->login;
+	public function get($attribut) {
+		return $this->$attribut;
 	}
 
 	public function set($nom_attribut, $valeur) {
@@ -33,7 +33,7 @@ class ModelUtilisateur {
 	public static function getAllUtilisateurs() {
 		try {
 			$rep=Model::$pdo->query("SELECT * FROM utilisateur");
-		    $rep->setFetchMode(PDO::FETCH_CLASS, 'Utilisateur');
+		    $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUtilisateur');
 		    $tab_utilisateur = $rep->fetchAll();
 		    /* foreach ($tab_utilisateur as $key => $value) {
 		      $value->afficher(); 

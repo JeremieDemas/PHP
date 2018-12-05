@@ -7,7 +7,7 @@
     <body>
     	<header>
           <nav style="border: 1px solid black;text-align:center;padding:1%;">
-            <a href="index.php?action=readAll">Les Voitures</a>
+            <a href="index.php?action=readAll&controller=voiture">Les Voitures</a>
             <a href="index.php?action=readAll&controller=utilisateur">Les Utilisateurs</a>
             <a href="index.php?action=readAll&controller=trajet">Les Trajets</a>
           </nav>

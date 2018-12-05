@@ -1,4 +1,7 @@
-        <?php
-        foreach ($tab_utilisateur as $v)
-            echo "<p> Utilisateur de login ".$v->getLogin()."</p>";
-        ?>
+<?php
+
+foreach ($tab_utilisateur as $u) {
+	echo "<p> Utilisateur de login ".$u->get("login").".</p>";
+}
+
+?>
