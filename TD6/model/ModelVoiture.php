@@ -5,6 +5,7 @@ require_once File::build_path(array("model","Model.php"));
 class ModelVoiture extends Model {
 
   protected static $object="voiture";
+  protected static $primary="immatriculation";
    
   private $marque;
   private $couleur;
@@ -109,16 +110,16 @@ class ModelVoiture extends Model {
 	    if (empty($tab_voit))
 	        return false;
 	    return $tab_voit;//[0];
-	}
-	catch (PDOException $e) {
-	  if (Conf::getDebug()) {
-	    echo $e->getMessage(); // affiche un message d'erreur
-	  }
-	  else {
-	    echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-	  }
-	  die();
-	}
+  	}
+  	catch (PDOException $e) {
+  	  if (Conf::getDebug()) {
+  	    echo $e->getMessage(); // affiche un message d'erreur
+  	  }
+  	  else {
+  	    echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+  	  }
+  	  die();
+  	}
   }
 
   public function save() {

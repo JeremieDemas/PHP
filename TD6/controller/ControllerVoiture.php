@@ -3,6 +3,9 @@
 require_once File::build_path(array("model","ModelVoiture.php")); // chargement du modèle
 
 class ControllerVoiture {
+
+    protected static $object="voiture";
+
     public static function readAll() {
     	$controller='voiture';
     	$view='list';
@@ -12,16 +15,15 @@ class ControllerVoiture {
     }
 
     public static function read() {
-    	$immat=$_GET["immat"];
-    	$v=ModelVoiture::getVoitureByImmat("$immat");
+        $v=ModelVoiture::select($_GET["immatriculation"]);
     	if(empty($v)) {
-    		$controller='voiture';
+            $controller="voiture";
     		$view='error';
     		$pagetitle='Erreur 404';
     		require File::build_path(array("view","view.php"));
     	}
     	else {
-    		$controller='voiture';
+            $controller="voiture";
     		$view='detail';
     		$pagetitle='Liste détaillée des voitures';
     		require File::build_path(array("view","view.php"));
