@@ -145,7 +145,7 @@ class ModelVoiture extends Model {
   	}
   }
 
-  public static function deleteByImmat($immat) {
+  /*public static function deleteByImmat($immat) {
     try {
       $sql="DELETE FROM voiture WHERE immatriculation=:tag_immat";
       $req_prep=Model::$pdo->prepare($sql);
@@ -164,7 +164,7 @@ class ModelVoiture extends Model {
       }
       die();
     }
-  }
+  }*/
 
   public static function update($data) {
     try {

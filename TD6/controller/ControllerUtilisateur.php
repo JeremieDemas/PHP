@@ -30,6 +30,17 @@ class ControllerUtilisateur {
     	}
     }
 
+    public static function delete() {
+        $controller='utilisateur';
+        $view='deleted';
+        $pagetitle='Utilisateur supprimé avec succès';
+        $login=$_GET["login"];
+        $u=ModelUtilisateur::getUtilisateurByLogin("$login");
+        ModelUtilisateur::delete($login);
+        require File::build_path(array("view","view.php"));
+        self::readAll();
+    }
+
 }
 
 ?>

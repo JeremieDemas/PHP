@@ -50,7 +50,7 @@ class ControllerVoiture {
         $pagetitle='Voiture supprimée avec succès';
         $immat=$_GET["immat"];
         $v=ModelVoiture::getVoitureByImmat("$immat");
-        ModelVoiture::deleteByImmat($immat);
+        ModelVoiture::delete($immat);
         require File::build_path(array("view","view.php"));
         self::readAll();
     }

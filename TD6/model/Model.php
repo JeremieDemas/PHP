@@ -89,6 +89,30 @@ class Model {
 	  	}
 	}
 
+	public static function delete($primary) {
+		$table_name=static::$object;
+		$class_name="Model".ucfirst($table_name);
+		$primary_key=static::$primary;
+	    try {
+	      $sql="DELETE FROM $table_name WHERE $primary_key=:nom_tag";
+	      $req_prep=Model::$pdo->prepare($sql);
+	      $values=array(
+	        "nom_tag" => $primary,
+	      );
+	      $req_prep->execute($values);
+	      $req_prep->setFetchMode(PDO::FETCH_CLASS,"$class_name");
+	    }
+	    catch (PDOException $e) {
+	      if (Conf::getDebug()) {
+	        echo $e->getMessage(); // affiche un message d'erreur
+	      }
+	      else {
+	        echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+	      }
+	      die();
+	    }
+  	}
+
 }
 
 Model::Init();
