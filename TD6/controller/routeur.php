@@ -13,12 +13,12 @@ else {
 
 $controller_class="Controller".ucfirst($controller);
 
-if(!in_array($_GET["action"],get_class_methods("$controller_class"))) {
-	$_GET["action"] = "error";
-}
-
 if(!isset($_GET["action"])) {
 	$_GET["action"] = "readAll";		
+}
+
+if(!in_array($_GET["action"],get_class_methods("$controller_class"))) {
+	$_GET["action"] = "error";
 }
 
 $action = $_GET["action"];
