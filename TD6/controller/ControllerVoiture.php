@@ -31,7 +31,10 @@ class ControllerVoiture {
     }
 
     public static function create() {
-    	require File::build_path(array("view","voiture","create.php"));
+    	$action="created";
+    	$mode="required";
+    	$v = new ModelVoiture();
+    	require File::build_path(array("view","voiture","update.php"));
     } 
 
     public static function created() {
@@ -48,7 +51,7 @@ class ControllerVoiture {
         $controller='voiture';
         $view='deleted';
         $pagetitle='Voiture supprimée avec succès';
-        $immat=$_GET["immat"];
+        $immat=$_GET["immatriculation"];
         $v=ModelVoiture::getVoitureByImmat("$immat");
         ModelVoiture::delete($immat);
         require File::build_path(array("view","view.php"));
@@ -63,10 +66,12 @@ class ControllerVoiture {
     }
 
     public static function update() {
+    	$action="updated";
+    	$mode="readonly";
         $controller='voiture';
         $view='update';
         $pagetitle='Mise à jour de la voiture en cours';
-        $immat=$_GET["immat"];
+        $immat=$_GET["immatriculation"];
         $v=ModelVoiture::getVoitureByImmat("$immat");
         require File::build_path(array("view","view.php"));
     }

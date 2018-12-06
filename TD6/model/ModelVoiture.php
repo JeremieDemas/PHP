@@ -168,11 +168,13 @@ class ModelVoiture extends Model {
 
   public static function update($data) {
     try {
-      $sql="UPDATE voiture SET couleur=:tag_couleur,marque=:tag_marque WHERE immatriculation='123456';";
+      $immat=$_POST["immatriculation"];
+      $sql="UPDATE voiture SET couleur=:tag_couleur,marque=:tag_marque WHERE immatriculation=:tag_immatriculation";
       $req_prep=Model::$pdo->prepare($sql);
       $values=array(
         "tag_couleur" => $data["couleur"],
         "tag_marque" => $data["marque"],
+        "tag_immatriculation" => $immat,
       );
       $req_prep->execute($values);
       $req_prep->setFetchMode(PDO::FETCH_CLASS,'ModelVoiture');
