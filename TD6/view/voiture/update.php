@@ -3,15 +3,15 @@
     			<legend>Mon formulaire :</legend>
           		<p>
       				<label for="immat_id">Immatriculation</label>
-      					<input type="text" value="<?php foreach($v as $value) { echo htmlspecialchars($value->getImmatriculation()); } ?>" $mode="<?php echo $_GET["immat"] ?>" name="immatriculation" id="immat_id" required/>
+      					<input type="text" value="<?php foreach($v as $value) { echo htmlspecialchars($value->getImmatriculation()); } ?>" name="immatriculation" id="immat_id" <?php echo $mode; ?>/>
     			</p>
     			<p>
       				<label for="marque_id">Marque</label> :
-      					<input type="text" value="<?php foreach($v as $value){ echo htmlspecialchars($value->getMarque());} ?>" name="marque" id="marque_id" required/>
+      					<input type="text" value="<?php foreach($v as $value) { echo htmlspecialchars($value->getMarque()); } ?>" name="marque" id="marque_id" required/>
     			</p>
     			<p>
       				<label for="couleur_id">Couleur</label> :
-      					<input type="text" value="<?php foreach($v as $value){ echo htmlspecialchars($value->getCouleur());} ?>" name="couleur" id="couleur_id" required/>
+      					<input type="text" value="<?php foreach($v as $value) { echo htmlspecialchars($value->getCouleur()); } ?>" name="couleur" id="couleur_id" required/>
     			</p>
           <p>
               <input type="hidden" value="<?php echo static::$object;?>" />

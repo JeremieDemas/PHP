@@ -65,6 +65,30 @@ class ModelUtilisateur extends Model {
   	}
   }
 
+  public static function update($data) {
+    try {
+      $login=$_POST["login"];
+      $sql="UPDATE utilisateur SET nom=:tag_nom,prenom=:tag_prenom WHERE login=:tag_login";
+      $req_prep=Model::$pdo->prepare($sql);
+      $values=array(
+        "tag_nom" => $data["nom"],
+        "tag_prenom" => $data["prenom"],
+        "tag_immatriculation" => $login,
+      );
+      $req_prep->execute($values);
+      $req_prep->setFetchMode(PDO::FETCH_CLASS,'ModelUtilisateur');
+    }
+    catch (PDOException $e) {
+      if (Conf::getDebug()) {
+        echo $e->getMessage(); // affiche un message d'erreur
+      }
+      else {
+        echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+      }
+      die();
+    }  
+  }
+
 	/*public static function getAllUtilisateurs() {
 		try {
 			$rep=Model::$pdo->query("SELECT * FROM utilisateur");

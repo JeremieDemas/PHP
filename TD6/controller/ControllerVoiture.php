@@ -71,8 +71,7 @@ class ControllerVoiture {
         $controller='voiture';
         $view='update';
         $pagetitle='Mise à jour de la voiture en cours';
-        $immat=$_GET["immatriculation"];
-        $v=ModelVoiture::getVoitureByImmat("$immat");
+        $v=ModelVoiture::select($_GET['immatriculation']);
         require File::build_path(array("view","view.php"));
     }
 

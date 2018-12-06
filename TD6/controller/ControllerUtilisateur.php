@@ -41,6 +41,47 @@ class ControllerUtilisateur {
         self::readAll();
     }
 
+    public static function create() {
+        $action="created";
+        $mode="required";
+        $u = new ModelUtilisateur();
+        require File::build_path(array("view","utilisateur","update.php"));
+    } 
+
+    public static function created() {
+        $controller='utilisateur';
+        $view='created';
+        $pagetitle='Utilisateur créé avec succès';
+        $utilisateur=new ModelUtilisateur($_POST["login"],$_POST["nom"],$_POST["prenom"]);
+        $utilisateur->save();
+        $tab_utilisateur=array($utilisateur);
+        require File::build_path(array("view","view.php"));
+    }
+
+    public static function update() {
+        $action="updated";
+        $mode="readonly";
+        $controller='utilisateur';
+        $view='update';
+        $pagetitle="Mise à jour de l'utilisateur en cours";
+        $u=ModelUtilisateur::select($_GET['login']);
+        require File::build_path(array("view","view.php"));
+    }
+
+    public static function updated() {
+        $controller='utilisateur';
+        $view='updated';
+        $pagetitle="Mise à jour de l'utilisateur avec succès";
+        $u=array(
+            "login"=>$_POST["login"],
+            "nom"=>$_POST["nom"],
+            "prenom"=>$_POST["prenom"],
+        );
+        ModelUtilisateur::update($u);
+        $tab_utilisateur=array();
+        require File::build_path(array("view","view.php"));
+    }
+
 }
 
 ?>
