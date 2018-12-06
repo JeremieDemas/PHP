@@ -52,9 +52,9 @@ class ControllerUtilisateur {
         $controller='utilisateur';
         $view='created';
         $pagetitle='Utilisateur créé avec succès';
-        $utilisateur=new ModelUtilisateur($_POST["login"],$_POST["nom"],$_POST["prenom"]);
-        $utilisateur->save();
-        $tab_utilisateur=array($utilisateur);
+        $utilisateur=array("login"=>$_POST["login"],"nom"=>$_POST["nom"],"prenom"=>$_POST["prenom"]);
+        ModelUtilisateur::save($utilisateur);
+        $tab_utilisateur=ModelUtilisateur::selectAll();
         require File::build_path(array("view","view.php"));
     }
 

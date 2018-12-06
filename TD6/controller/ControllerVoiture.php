@@ -41,9 +41,9 @@ class ControllerVoiture {
         $controller='voiture';
         $view='created';
         $pagetitle='Voiture créée avec succès';
-    	$voit=new ModelVoiture($_POST["marque"],$_POST["couleur"],$_POST["immatriculation"]);
-    	$voit->save();
-        $tab_v=array($voit);
+    	$voit=array("marque"=>$_POST["marque"],"couleur"=>$_POST["couleur"],"immatriculation"=>$_POST["immatriculation"]);
+    	ModelVoiture::save($voit);
+        $tab_v=ModelVoiture::selectAll();
         require File::build_path(array("view","view.php"));
     }
 

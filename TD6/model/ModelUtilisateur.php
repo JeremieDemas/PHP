@@ -65,7 +65,7 @@ class ModelUtilisateur extends Model {
   	}
   }
 
-  public static function update($data) {
+  /*public static function update($data) {
     try {
       $login=$_POST["login"];
       $sql="UPDATE utilisateur SET nom=:tag_nom,prenom=:tag_prenom WHERE login=:tag_login";
@@ -87,7 +87,7 @@ class ModelUtilisateur extends Model {
       }
       die();
     }  
-  }
+  }*/
 
 	/*public static function getAllUtilisateurs() {
 		try {

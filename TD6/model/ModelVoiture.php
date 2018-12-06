@@ -122,7 +122,7 @@ class ModelVoiture extends Model {
   	}
   }
 
-  public function save() {
+  /*public function save() {
   	try {
   		$sql="INSERT INTO voiture (immatriculation,marque,couleur) VALUES (:tag_immatriculation,:tag_marque,:tag_couleur)";
 	  	$req_prep=Model::$pdo->prepare($sql);
@@ -143,7 +143,7 @@ class ModelVoiture extends Model {
   	  }
   	  die();
   	}
-  }
+  }*/
 
   /*public static function deleteByImmat($immat) {
     try {
@@ -166,7 +166,7 @@ class ModelVoiture extends Model {
     }
   }*/
 
-  public static function update($data) {
+  /*public static function update($data) {
     try {
       $immat=$_POST["immatriculation"];
       $sql="UPDATE voiture SET couleur=:tag_couleur,marque=:tag_marque WHERE immatriculation=:tag_immatriculation";
@@ -188,7 +188,7 @@ class ModelVoiture extends Model {
       }
       die();
     }  
-  }
+  }*/
 
 }
 ?>

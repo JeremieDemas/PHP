@@ -91,7 +91,6 @@ class Model {
 
 	public static function delete($primary) {
 		$table_name=static::$object;
-		$class_name="Model".ucfirst($table_name);
 		$primary_key=static::$primary;
 	    try {
 	      $sql="DELETE FROM $table_name WHERE $primary_key=:nom_tag";
@@ -100,7 +99,6 @@ class Model {
 	        "nom_tag" => $primary,
 	      );
 	      $req_prep->execute($values);
-	      $req_prep->setFetchMode(PDO::FETCH_CLASS,"$class_name");
 	    }
 	    catch (PDOException $e) {
 	      if (Conf::getDebug()) {
@@ -113,6 +111,55 @@ class Model {
 	    }
   	}
 
+  	public static function update($data) {
+      try {
+          $table_name = static::$object;
+          $primary_key = static::$primary;
+          $sql = "UPDATE " . $table_name . " SET ";
+          foreach ($data as $key => $value) {
+              $sql .= $key . " = :" . $key . ', ';
+          }
+          $sql = rtrim($sql, ', ') . " WHERE " . $primary_key . " = :" . $primary_key;
+          
+          $req_prep = Model::$pdo->prepare($sql);
+          $req_prep->execute($data);
+      } catch(PDOException $e) {
+          if (Conf::getDebug()) {
+              echo $e->getMessage(); // affiche un message d'erreur
+          }
+          else {
+              echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+          }
+          die();
+      }
+  }
+
+  public static function save($data) {
+      try {
+          $table_name = static::$object;
+          $primary_key = static::$primary;
+          $sql = "INSERT INTO " . $table_name . " (";
+          foreach ($data as $key => $value){
+              $sql .= $key . ', ';
+          }
+          $sql = rtrim($sql, ', ') . ") VALUES (";
+          foreach ($data as $key => $value) {
+              $sql .= ":" . $key . ', ';
+          }
+          $sql = rtrim($sql, ', ') . ")";
+          $req_prep = Model::$pdo->prepare($sql);
+          $req_prep->execute($data);
+      } catch(PDOException $e) {
+          if (Conf::getDebug()) {
+              echo $e->getMessage(); // affiche un message d'erreur
+          }
+          else {
+              echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+          }
+          die();
+      }
+  }
+          
 }
 
 Model::Init();
