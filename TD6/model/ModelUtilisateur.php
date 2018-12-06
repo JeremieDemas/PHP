@@ -73,7 +73,7 @@ class ModelUtilisateur extends Model {
       $values=array(
         "tag_nom" => $data["nom"],
         "tag_prenom" => $data["prenom"],
-        "tag_immatriculation" => $login,
+        "tag_login" => $login,
       );
       $req_prep->execute($values);
       $req_prep->setFetchMode(PDO::FETCH_CLASS,'ModelUtilisateur');

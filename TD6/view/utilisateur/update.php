@@ -2,7 +2,7 @@
   			<fieldset>
     			<legend>Mon formulaire :</legend>
           		<p>
-      				<label for="login_id">Login</label>
+      				<label for="login_id">Login</label> :
       					<input type="text" value="<?php foreach($u as $value) { echo htmlspecialchars($value->get("login")); } ?>" name="login" id="login_id" <?php echo $mode; ?>/>
     			</p>
     			<p>
