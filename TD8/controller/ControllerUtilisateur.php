@@ -2,6 +2,7 @@
 
 require_once File::build_path(array("model","ModelUtilisateur.php")); // chargement du modèle
 require_once File::build_path(array("lib","Security.php"));
+require_once File::build_path(array("lib","Session.php"));
 
 class ControllerUtilisateur {
 
@@ -68,25 +69,34 @@ class ControllerUtilisateur {
     }
 
     public static function update() {
-        $action="updated";
-        $mode="readonly";
-        $controller='utilisateur';
-        $view='update';
-        $pagetitle="Mise à jour de l'utilisateur en cours";
-        $u=ModelUtilisateur::select($_GET['login']);
-        require File::build_path(array("view","view.php"));
+    	if(isset($_SESSION["login"]) && Session::is_user($_SESSION["login"])) {
+	        $action="updated";
+	        $mode="readonly";
+	        $controller='utilisateur';
+	        $view='update';
+	        $pagetitle="Mise à jour de l'utilisateur en cours";
+	        $u=ModelUtilisateur::select($_GET['login']);
+	        require File::build_path(array("view","view.php"));
+   		}
+        else {
+	    	$action="connected";
+	        $controller='utilisateur';
+	        $view='connect';
+	        $pagetitle="Connexion de l'utilisateur en cours";
+	        require File::build_path(array("view","view.php"));
+	    }
     }
 
     public static function updated() {
         $controller='utilisateur';
         $view='updated';
         $pagetitle="Mise à jour de l'utilisateur avec succès";
-        if ($_POST["mdp"]==$_POST["mdpc"]) {
-            $u=array("login"=>$_POST["login"], "nom"=>$_POST["nom"], "prenom"=>$_POST["prenom"], "mdp"=>Security::chiffrer($_POST["mdp"]));
+	    if ($_POST["mdp"]==$_POST["mdpc"]) {
+	        $u=array("login"=>$_POST["login"], "nom"=>$_POST["nom"], "prenom"=>$_POST["prenom"], "mdp"=>Security::chiffrer($_POST["mdp"]));
             ModelUtilisateur::update($u);
-            $tab_utilisateur=array();
-            require File::build_path(array("view","view.php"));
-        }
+	        $tab_utilisateur=array();
+	        require File::build_path(array("view","view.php"));
+	    }
         else {
             $controller="utilisateur";
             $view='error';
