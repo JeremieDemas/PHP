@@ -95,6 +95,44 @@ class ControllerUtilisateur {
         }
     }
 
+    public static function connect() {
+        $action="connected";
+        $controller='utilisateur';
+        $view='connect';
+        $pagetitle="Connexion de l'utilisateur en cours";
+        require File::build_path(array("view","view.php"));
+    }
+
+    public static function connected() {
+        $controller='utilisateur';
+        $view='connected';
+        $pagetitle="Connexion de l'utilisateur avec succès";
+        $res=ModelUtilisateur::checkPassword($_POST["login"],Security::chiffrer($_POST["mdp"]));
+        if ($res) {
+            $_SESSION["login"]=$_POST["login"];
+            $_SESSION["mdp"]=$_POST["mdp"];
+            $u=ModelUtilisateur::select($_SESSION["login"]);
+            $controller="utilisateur";
+            $view='detail';
+            $pagetitle='Liste détaillée des utilisateurs';
+            require File::build_path(array("view","view.php"));
+        }
+        else {
+            $controller="utilisateur";
+            $view='error';
+            $pagetitle='Erreur 404';
+            require File::build_path(array("view","view.php"));
+        }
+    }
+
+    public static function deconnect() {
+        session_unset();
+        session_destroy();
+        setcookie(session_name(), "", time()-1);
+        header("Location: index.php");
+        require File::build_path(array("index.php"));
+    }
+
 }
 
 ?>

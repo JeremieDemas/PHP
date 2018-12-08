@@ -11,6 +11,23 @@
             <a href="index.php?action=readAll&controller=utilisateur">Les Utilisateurs</a>
             <a href="index.php?action=readAll&controller=trajet">Les Trajets</a>
             <a href="config/preference.html">Préférences</a>
+            <?php
+            require_once File::build_path(array("model","ModelUtilisateur.php"));
+            if(isset($_SESSION)) {
+                if(!isset($_SESSION["login"])) {
+                    echo '<a href="index.php?action=connect&controller=utilisateur">Connexion</a>';
+                }
+                else {
+                    echo '<a href="index.php?action=deconnect&controller=utilisateur">Déconnexion</a>';
+                }
+            }
+            else {
+                $controller="utilisateur";
+                $view='error';
+                $pagetitle='Erreur 404';
+                require File::build_path(array("view","view.php"));
+            }
+            ?>
           </nav>
         </header>
 		<?php

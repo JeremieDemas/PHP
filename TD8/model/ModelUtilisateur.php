@@ -65,6 +65,43 @@ class ModelUtilisateur extends Model {
 	  	}
 	}
 
+	public static function checkPassword($login,$mot_de_passe_chiffre) {
+		try {
+	    	$sql = "SELECT * from utilisateur WHERE login=:login_tag AND mdp=:mdp_tag";
+		    // Préparation de la requête
+		    $req_prep = Model::$pdo->prepare($sql);
+
+		    $values = array(
+		        "login_tag" => $login,
+		        "mdp_tag" => $mot_de_passe_chiffre,
+		        //nomdutag => valeur, ...
+		    );
+		    // On donne les valeurs et on exécute la requête	 
+		    $req_prep->execute($values);
+
+		    // On récupère les résultats comme précédemment
+		    $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelUtilisateur');
+		    $tab_utilisateur = $req_prep->fetchAll();
+		    // Attention, si il n'y a pas de résultats, on renvoie false
+		    if (empty($tab_utilisateur)) {
+		        return false;
+		    }
+		    else {
+		    	return true;//[0];
+	  		}
+
+	  	}
+	  	catch (PDOException $e) {
+	  	  if (Conf::getDebug()) {
+	  	    echo $e->getMessage(); // affiche un message d'erreur
+	  	  }
+	  	  else {
+	  	    echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+	  	  }
+	  	  die();
+	  	}	
+	}
+
   /*public static function update($data) {
     try {
       $login=$_POST["login"];
