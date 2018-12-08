@@ -33,14 +33,23 @@ class ControllerUtilisateur {
     }
 
     public static function delete() {
-        $controller='utilisateur';
-        $view='deleted';
-        $pagetitle='Utilisateur supprimé avec succès';
-        $login=$_GET["login"];
-        $u=ModelUtilisateur::getUtilisateurByLogin("$login");
-        ModelUtilisateur::delete($login);
-        require File::build_path(array("view","view.php"));
-        self::readAll();
+    	if(isset($_SESSION["login"]) && Session::is_user($_SESSION["login"])) {
+	        $controller='utilisateur';
+	        $view='deleted';
+	        $pagetitle='Utilisateur supprimé avec succès';
+	        $login=$_GET["login"];
+	        $u=ModelUtilisateur::getUtilisateurByLogin("$login");
+	        ModelUtilisateur::delete($login);
+	        require File::build_path(array("view","view.php"));
+	        self::readAll();
+	    }
+	    else {
+	    	$action="connected";
+	        $controller='utilisateur';
+	        $view='connect';
+	        $pagetitle="Connexion de l'utilisateur en cours";
+	        require File::build_path(array("view","view.php"));
+	    }
     }
 
     public static function create() {
@@ -88,21 +97,30 @@ class ControllerUtilisateur {
     }
 
     public static function updated() {
-        $controller='utilisateur';
-        $view='updated';
-        $pagetitle="Mise à jour de l'utilisateur avec succès";
-	    if ($_POST["mdp"]==$_POST["mdpc"]) {
-	        $u=array("login"=>$_POST["login"], "nom"=>$_POST["nom"], "prenom"=>$_POST["prenom"], "mdp"=>Security::chiffrer($_POST["mdp"]));
-            ModelUtilisateur::update($u);
-	        $tab_utilisateur=array();
+    	if(isset($_SESSION["login"]) && Session::is_user($_SESSION["login"])) {
+	        $controller='utilisateur';
+	        $view='updated';
+	        $pagetitle="Mise à jour de l'utilisateur avec succès";
+		    if ($_POST["mdp"]==$_POST["mdpc"]) {
+		        $u=array("login"=>$_POST["login"], "nom"=>$_POST["nom"], "prenom"=>$_POST["prenom"], "mdp"=>Security::chiffrer($_POST["mdp"]));
+	            ModelUtilisateur::update($u);
+		        $tab_utilisateur=array();
+		        require File::build_path(array("view","view.php"));
+		    }
+	        else {
+	            $controller="utilisateur";
+	            $view='error';
+	            $pagetitle='Erreur 404';
+	            require File::build_path(array("view","view.php"));
+	        }
+	    }
+	    else {
+	    	$action="connected";
+	        $controller='utilisateur';
+	        $view='connect';
+	        $pagetitle="Connexion de l'utilisateur en cours";
 	        require File::build_path(array("view","view.php"));
 	    }
-        else {
-            $controller="utilisateur";
-            $view='error';
-            $pagetitle='Erreur 404';
-            require File::build_path(array("view","view.php"));
-        }
     }
 
     public static function connect() {
