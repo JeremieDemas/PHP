@@ -87,13 +87,13 @@ class ControllerUtilisateur {
 	        $u=ModelUtilisateur::select($_GET['login']);
 	        require File::build_path(array("view","view.php"));
    		}
-    	else if(isset($_SESSION["login"]) && Session::is_user($_SESSION["login"])) {
+    	else if(isset($_SESSION["login"]) && Session::is_user($_SESSION["login"]) && $_GET["login"]==$_SESSION["login"]) {
 	        $action="updated";
 	        $mode="readonly";
 	        $controller='utilisateur';
 	        $view='update';
 	        $pagetitle="Mise à jour de l'utilisateur en cours";
-	        $u=ModelUtilisateur::select($_SESSION['login']);
+	        $u=ModelUtilisateur::select($_GET['login']);
 	        require File::build_path(array("view","view.php"));
    		}
         else {
