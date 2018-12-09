@@ -78,13 +78,22 @@ class ControllerUtilisateur {
     }
 
     public static function update() {
-    	if(isset($_SESSION["login"]) && Session::is_user($_SESSION["login"])) {
+    	if(isset($_SESSION["login"]) && Session::is_admin($_SESSION["login"])) {
 	        $action="updated";
 	        $mode="readonly";
 	        $controller='utilisateur';
 	        $view='update';
 	        $pagetitle="Mise à jour de l'utilisateur en cours";
 	        $u=ModelUtilisateur::select($_GET['login']);
+	        require File::build_path(array("view","view.php"));
+   		}
+    	else if(isset($_SESSION["login"]) && Session::is_user($_SESSION["login"])) {
+	        $action="updated";
+	        $mode="readonly";
+	        $controller='utilisateur';
+	        $view='update';
+	        $pagetitle="Mise à jour de l'utilisateur en cours";
+	        $u=ModelUtilisateur::select($_SESSION['login']);
 	        require File::build_path(array("view","view.php"));
    		}
         else {
@@ -135,15 +144,29 @@ class ControllerUtilisateur {
         $controller='utilisateur';
         $view='connected';
         $pagetitle="Connexion de l'utilisateur avec succès";
+        $u=ModelUtilisateur::select($_POST["login"]);
         $res=ModelUtilisateur::checkPassword($_POST["login"],Security::chiffrer($_POST["mdp"]));
         if ($res) {
-            $_SESSION["login"]=$_POST["login"];
-            $_SESSION["mdp"]=$_POST["mdp"];
-            $u=ModelUtilisateur::select($_SESSION["login"]);
-            $controller="utilisateur";
-            $view='detail';
-            $pagetitle='Liste détaillée des utilisateurs';
-            require File::build_path(array("view","view.php"));
+        	if($u[0]->get("admin")==1) {
+        		$_SESSION['admin'] = true;
+	            $_SESSION["login"]=$_POST["login"];
+	            $_SESSION["mdp"]=$_POST["mdp"];
+	            $u=ModelUtilisateur::select($_SESSION["login"]);
+	            $controller="utilisateur";
+	            $view='detail';
+	            $pagetitle='Liste détaillée des utilisateurs';
+	            require File::build_path(array("view","view.php"));
+	        }
+	        else {
+	        	$_SESSION['admin'] = false;
+	        	$_SESSION["login"]=$_POST["login"];
+	            $_SESSION["mdp"]=$_POST["mdp"];
+	            $u=ModelUtilisateur::select($_SESSION["login"]);
+	            $controller="utilisateur";
+	            $view='detail';
+	            $pagetitle='Liste détaillée des utilisateurs';
+	            require File::build_path(array("view","view.php"));
+	        }
         }
         else {
             $controller="utilisateur";

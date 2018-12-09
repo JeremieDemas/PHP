@@ -10,6 +10,8 @@ class ModelUtilisateur extends Model {
 	private $login;
 	private $nom;
 	private $prenom;
+	private $mdp;
+	private $admin;
 
 	public function get($attribut) {
 		return $this->$attribut;
